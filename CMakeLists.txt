@@ -4,8 +4,6 @@
 cmake_minimum_required(VERSION 3.13)
 project(OneSamp)
 
-# Add main.cpp file of project root directory as source file
-set(SOURCE_FILES refactor_main.c)
 ################################################################################
 # Set a default build type if none was specified
 if(NOT CMAKE_BUILD_TYPE)
@@ -52,6 +50,5 @@ set(MAIN_SOURCE ${CMAKE_SOURCE_DIR}/refactor/engine/refactor_main.c)
 ################################################################################
 # Executables
 
-# Add executable target with source files listed in SOURCE_FILES variable
 add_executable(OneSamp ${MAIN_SOURCE} ${ONESAMP_LIB_SOURCES})
 set_target_properties(OneSamp PROPERTIES LINKER_LANGUAGE C)
