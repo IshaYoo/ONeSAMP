@@ -35,7 +35,7 @@ int syntax_check;
 int example;
 int raw_stats;
 int single_generation;
-int example_pop;
+int example_pop = 0;
 int absentDataExtrapolate;
 int input_individuals_count_allocation = -1;
 int num_loci_allocation = -1;
@@ -361,7 +361,8 @@ int parseExample(){
 /*! \brief Returns true if generating an example population of known effective population size.
  */
 int parseExamplePop(){
-  return example_pop;
+
+    return example_pop;
 }
 
 /*! \brief Returns true if computing statistics from input data without simulating intermediate generations.
@@ -461,6 +462,9 @@ void parseArguments(int argc, char **argv){
 
       final_individuals_count = input_individuals_count;
     }
+    else if (currentArg[1] == 'p') {
+        example_pop = 1;
+    }
     else if(currentArg[1] == 'b') {
       // Bottleneck
       if(bottleneck_individuals_count != NULL) reportError("Duplicate flag: -b");
@@ -496,7 +500,7 @@ void parseArguments(int argc, char **argv){
       if(theta != NULL) reportError("Duplicate flag: -v");
       theta = parsePositiveDoublePair(i, argv);
     }
-    else if(currentArg[1] == 'x' || currentArg[1] == 'e' || currentArg[1] == 'w' || currentArg[1] == 'g' || currentArg[1] == 'p') {
+    else if(currentArg[1] == 'x' || currentArg[1] == 'e' || currentArg[1] == 'w' || currentArg[1] == 'g') {
       // Check syntax
       if(syntax_check != FALSE || example != FALSE || raw_stats != FALSE || single_generation != FALSE)
         reportError("Duplicate flag: -x and/or -e and/or -w and/or -g and/or -p");
@@ -504,7 +508,7 @@ void parseArguments(int argc, char **argv){
       if(currentArg[1] == 'x') syntax_check = TRUE;
       if(currentArg[1] == 'w') raw_stats = TRUE;
       if(currentArg[1] == 'g') single_generation = TRUE;
-      if(currentArg[1] == 'p') example_pop = TRUE;
+      //if(currentArg[1] == 'p') example_pop = TRUE;
     }
     else if(currentArg[1] == 'f') {
       if(minAlleleFrequency != -1) reportError("Duplicate flag: -f");
@@ -566,9 +570,9 @@ void parseArguments(int argc, char **argv){
       if(!parseRawSample()) parseTheta(0);
     }
   }
-  if(!parseSyntaxCheck() && !parseRawSample() && !parseExample() && !parseSingleGeneration() && !parseExamplePop()){
-    reportArgumentError((char *) "%s: missing an operation to perform on the input file: -x (syntax check operation), -w (compute statistics of input sample), -g (simulate a single generation from an input population and display to standard out), -p (dump out an example population with known effective population size), or -e (compute stats of coalescent sample after a few generations have passed)");
-  }
+  //if(!parseSyntaxCheck() && !parseRawSample() && !parseExample() && !parseSingleGeneration()){
+    //reportArgumentError((char *) "%s: missing an operation to perform on the input file: -x (syntax check operation), -w (compute statistics of input sample), -g (simulate a single generation from an input population and display to standard out), -p (dump out an example population with known effective population size), or -e (compute stats of coalescent sample after a few generations have passed)");
+  //}
 }
 
 /*! \brief Deallocates memory for data from command line arguments.

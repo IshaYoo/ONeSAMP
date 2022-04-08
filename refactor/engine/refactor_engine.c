@@ -224,13 +224,13 @@ int onesamp_engine(int argc, char **argv){
     free(males[i]);
   }
 
-  if(parseExamplePop()){
+  if(!parseExamplePop()){
     // Dump population
     writeoutput(final_indivs_data, parseInputSamples());
   } else {
     // Compute statistics
 
-    //writeoutput(final_indivs_data, parseInputSamples());
+    writeoutput(final_indivs_data, parseInputSamples());
 
     // Statistic 6: mnals
     // Summarize information about alleles
